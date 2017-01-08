@@ -1,0 +1,74 @@
+<label for="tags" class="col-sm-2 form-control-label">Search</label>
+<div class="col-xs-13">
+    <input type="text" class="form-control" id="searchBar" ng-model="search.tag" list="taglistings">
+</div>
+<div align="center" ng-repeat="x in search.tags ">
+    <div class="tagthing">
+        {{x.tag}}
+        <img id="delImg" src="js/img/del.png" ng-click="delSearchTag($index)" )>
+    </div>
+</div>
+
+
+<div ng-repeat="x in videos|tagFiltering :search.tag:search.tags">
+    <div class="videoarea" ng-click="modalopen(x.number)" data-toggle="modal" data-target="#mainmodal">
+        <img class="thumbimage" ng-src="http://{{BackUrl}}:3000/{{x.thumb}}" onerror="this.src='js/img/thumb.jpg';"> {{x.name}} {{sectionIndex}}
+    </div>
+</div>
+
+<div class="modal fade" id="mainmodal" role="dialog">
+    <div class="modal-dialog">
+
+        <div class="modal-header">{{modal.index}}</div>
+        <div class="modal-body">
+            <label for="tags" class="col-sm-2 form-control-label">Name</label>
+            <div class="col-xs-10">
+                <input type="text" class="form-control" id="modalname" ng-model="modal.name">
+            </div>
+            <label for="tags" class="col-sm-2 form-control-label">Link</label>
+            <div class="col-xs-10">
+                <input type="text" class="form-control" ng-model="modal.video">
+            </div>
+
+
+            <video id="my-video" height="300px" controls src="{{modal.video| trustUrl}}" poster="{{modal.thumb}}" onerror="this.poster='js/img/thumb.jpg';"></video>
+
+            <div class="form-group row">
+                <label for="tags" class="col-sm-2 form-control-label">Tag</label>
+
+                <div class="col-xs-9">
+                    <input type="text" class="form-control" id="tags" maxlength="50" ng-model="tag" placeholder="Add tags">
+                </div>
+
+                <div class="col-xs-1">
+                    <button class="btn btn-primary" type="button" ng-click="addTag()">+</button>
+                </div>
+
+            </div>
+
+        </div>
+        <div align="center" ng-repeat="x in modal.tags">
+            <div class="tagthing">
+                {{x.tag}}
+                <img id="delImg" src="js/img/del.png" ng-click="delTag($index)" )>
+            </div>
+        </div>
+
+
+
+
+        <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+
+    </div>
+
+</div>
+
+
+
+<datalist id="taglistings">
+  <asd data-ng-repeat="ttl in taglist" >
+  <option   value="{{ttl.tag}}">{{ttl.amount}}</option>
+</asd>
+</datalist>
